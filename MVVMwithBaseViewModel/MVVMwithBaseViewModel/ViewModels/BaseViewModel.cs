@@ -10,7 +10,7 @@ using MVVMwithBaseViewModel.Services;
 
 namespace MVVMwithBaseViewModel.ViewModels
 {
-    public class BaseViewModel : BindableObject
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public Command RefreshCommand
         {
@@ -32,6 +32,13 @@ namespace MVVMwithBaseViewModel.ViewModels
                 });
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName]string PropertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs((PropertyName)));
+        }
+
         public virtual void Refresh()
         {
 
